@@ -19,7 +19,7 @@ release flow by automating the creation of a GitHub release.
 ## How it works
 
 When a tag is pushed to a selected repository that looks like a
-release [semantic version][semver], this skill creates a [GitHub
+[semantic version][semver], this skill creates a [GitHub
 Release][gh-release] for that tag.
 
 [semver]: https://semver.org/ "Semantic Versioning"
