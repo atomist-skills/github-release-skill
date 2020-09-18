@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { EventHandler, log, secret, status } from "@atomist/skill";
+import { EventHandler, secret, status } from "@atomist/skill";
 import { Octokit } from "@octokit/rest";
 import { GitHubReleaseConfiguration } from "../configuration";
 import { isPrereleaseSemVer, isReleaseSemVer } from "../semver";
@@ -24,22 +24,33 @@ export const handler: EventHandler<
 	OnTagSubscription,
 	GitHubReleaseConfiguration
 > = async ctx => {
-	const tag = ctx.data.Tag[0];
+	const tag = ctx.data.Tag?.[0];
+	if (!tag) {
+		return status.success("No tag").hidden();
+	}
 	const tagName = tag?.name;
-	const repo = tag.commit.repo;
+	if (!tagName) {
+		return status.success("No tag name").hidden();
+	}
+	const repo = tag.commit?.repo;
+	if (!repo || !repo.owner || !repo.name) {
+		return status.success(`Tag ${tagName} has no repo`).hidden();
+	}
 	const repoSlug = `${repo.owner}/${repo.name}`;
 	const createPrerelease = ctx.configuration?.[0]?.parameters?.prerelease;
 
+	let prerelease = false;
 	if (createPrerelease && isPrereleaseSemVer(tagName)) {
-		log.info(`Creating GitHub prerelease ${tagName} for ${repoSlug}`);
+		prerelease = true;
+		await ctx.audit.log(
+			`Creating GitHub prerelease ${tagName} for ${repoSlug}`,
+		);
 	} else if (isReleaseSemVer(tagName)) {
-		log.info(`Creating GitHub release ${tagName} for ${repoSlug}`);
+		await ctx.audit.log(
+			`Creating GitHub release ${tagName} for ${repoSlug}`,
+		);
 	} else {
-		return {
-			code: 0,
-			reason: `Not a semantic version tag: ${tag}`,
-			visibility: "hidden",
-		};
+		return status.success(`Not a semantic version tag: ${tag}`).hidden();
 	}
 
 	await ctx.audit.log(`Starting GitHub Release on ${repoSlug}`);
@@ -48,19 +59,24 @@ export const handler: EventHandler<
 		secret.gitHubAppToken({
 			owner: repo.owner,
 			repo: repo.name,
-			apiUrl: repo.org.provider.apiUrl,
+			apiUrl: repo.org?.provider?.apiUrl,
 		}),
 	);
+	if (!credential) {
+		return status
+			.success(`Failed to get credential for ${repoSlug}`)
+			.hidden();
+	}
 
 	const octokit = new Octokit({
 		auth: credential.token,
 		userAgent: "@atomist/github-release-skill v0.1.0",
 	});
-
 	try {
 		await octokit.repos.createRelease({
 			name: `${tagName} Release`,
 			owner: repo.owner,
+			prerelease,
 			repo: repo.name,
 			tag_name: tagName,
 		});
@@ -71,6 +87,6 @@ export const handler: EventHandler<
 	}
 
 	const msg = `Created release ${tagName} for ${repoSlug}`;
-	log.info(msg);
+	await ctx.audit.log(msg);
 	return status.success(msg);
 };
