@@ -25,7 +25,7 @@ import { GitHubReleaseConfiguration } from "./lib/configuration";
 
 export const Skill = skill<GitHubReleaseConfiguration & { repos: any }>({
 	displayName: "GitHub Release",
-	categories: [Category.Deploy, Category.DevOps],
+	categories: [Category.DevEx, Category.DevOps],
 
 	resourceProviders: {
 		github: resourceProvider.gitHub({ minRequired: 1 }),
