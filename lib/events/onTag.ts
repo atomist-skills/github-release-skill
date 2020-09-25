@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-import { EventHandler, secret, status } from "@atomist/skill";
-import { Octokit } from "@octokit/rest";
+import { EventHandler, github, secret, status } from "@atomist/skill";
 import { GitHubReleaseConfiguration } from "../configuration";
 import { isPrereleaseSemVer, isReleaseSemVer } from "../semver";
 import { OnTagSubscription } from "../typings/types";
@@ -68,9 +67,9 @@ export const handler: EventHandler<
 			.hidden();
 	}
 
-	const octokit = new Octokit({
-		auth: credential.token,
-		userAgent: "@atomist/github-release-skill v0.1.0",
+	const octokit = github.api({
+		apiUrl: repo.org?.provider?.apiUrl,
+		credential,
 	});
 	try {
 		await octokit.repos.createRelease({

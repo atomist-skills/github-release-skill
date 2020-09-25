@@ -11,8 +11,7 @@
   "homepage": "https://github.com/atomist-skills/github-release-skill#readme",
   "license": "Apache-2.0",
   "dependencies": {
-    "@atomist/skill": "^0.1.1-172",
-    "@octokit/rest": "^18.0.5"
+    "@atomist/skill": "^0.1.1-172"
   },
   "devDependencies": {
     "@google-cloud/functions-framework": "^1.7.1",
@@ -71,7 +70,7 @@
     "skill": "run-s compile test skill:generate skill:bundle skill:package",
     "skill:generate": "atm-skill generate",
     "skill:clean": "atm-skill clean",
-    "skill:bundle": "atm-skill bundle --no-minify --no-source-map",
+    "skill:bundle": "atm-skill bundle",
     "skill:package": "atm-skill package",
     "skill:register": "atm-skill register",
     "atm:lint:eslint": "eslint --fix",
