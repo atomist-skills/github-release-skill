@@ -1,4 +1,4 @@
-# `atomist/npm-version-skill`
+# `atomist/github-release-skill`
 
 <!---atomist-skill-description:start--->
 
