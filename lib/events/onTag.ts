@@ -14,13 +14,18 @@
  * limitations under the License.
  */
 
-import { EventHandler, github, secret, status } from "@atomist/skill";
+import {
+	EventHandler,
+	github,
+	secret,
+	status,
+	subscription,
+} from "@atomist/skill";
 import { GitHubReleaseConfiguration } from "../configuration";
 import { isPrereleaseSemVer, isReleaseSemVer } from "../semver";
-import { OnTagSubscription } from "../typings/types";
 
 export const handler: EventHandler<
-	OnTagSubscription,
+	subscription.types.OnTagSubscription,
 	GitHubReleaseConfiguration
 > = async ctx => {
 	const tag = ctx.data.Tag?.[0];
@@ -36,7 +41,7 @@ export const handler: EventHandler<
 		return status.success(`Tag ${tagName} has no repo`).hidden();
 	}
 	const repoSlug = `${repo.owner}/${repo.name}`;
-	const createPrerelease = ctx.configuration?.[0]?.parameters?.prerelease;
+	const createPrerelease = ctx.configuration?.parameters?.prerelease;
 
 	let prerelease = false;
 	if (createPrerelease && isPrereleaseSemVer(tagName)) {
