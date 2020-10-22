@@ -23,7 +23,7 @@ Connect and configure the [**GitHub**][github] integration.
     organizations you have connected.
 
     To restrict the organizations or specific repositories on which the skill
-    will run, you can explicitly choose organization(s) and repositories.
+    will run, you can explicitly choose organizations and repositories.
 
 3.  **Activate the skill**
 
