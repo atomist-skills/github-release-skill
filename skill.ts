@@ -24,6 +24,8 @@ import {
 import { GitHubReleaseConfiguration } from "./lib/configuration";
 
 export const Skill = skill<GitHubReleaseConfiguration & { repos: any }>({
+	description:
+		"Create a GitHub release when semantic version tags are pushed",
 	displayName: "GitHub Release",
 	categories: [Category.DevOps],
 

@@ -1,36 +1,82 @@
 # `atomist/github-release-skill`
 
-<!---atomist-skill-description:start--->
+Create a GitHub release when semantic version tags are pushed to your
+repositories.
 
-Create a GitHub release when semantic version tags are pushed
+:sparkles: [_**View this skill in the Atomist Skills Catalog**_][atomist-skill]
+to enable this skill on your repositories. :sparkles:
 
-<!---atomist-skill-description:end--->
+See the [Atomist website][atomist] for general information about Atomist Skills
+and the [Atomist documentation site][atomist-doc] for instructions on how to get
+started using Atomist Skills.
 
----
+[atomist-skill]:
+    https://go.atomist.com/catalog/skills/atomist/github-release-skill
+    "Atomist Skills Catalog - Automate All Your Software Tasks"
+[atomist-doc]: https://docs.atomist.com/ "Atomist Documentation"
 
-<!---atomist-skill-readme:start--->
+## Contributing
 
-## What it's useful for
+Contributions to this project from community members are encouraged and
+appreciated. Please review the [Contributing Guidelines](CONTRIBUTING.md) for
+more information. Also see the [Development](#development) section in this
+document.
 
-In a typical release flow on GitHub, you push a semantic version tag when you
-want to release a new version. This skill facilitates this release flow by
-automating the creation of a GitHub release.
+## Code of conduct
 
-## How it works
+This project is governed by the [Code of Conduct](CODE_OF_CONDUCT.md). You are
+expected to act in accordance with this code by participating. Please report any
+unacceptable behavior to code-of-conduct@atomist.com.
 
-When a tag is pushed to a selected repository that looks like a [semantic
-version][semver], this skill creates a [GitHub Release][gh-release] for that
-tag.
+## Connect
 
-[semver]: https://semver.org/ "Semantic Versioning"
-[gh-release]:
-    https://docs.github.com/en/github/administering-a-repository/about-releases
+Follow [@atomist][atomist-twitter] on Twitter and [The Atomist
+Blog][atomist-blog].
 
-<!---atomist-skill-readme:end--->
+[atomist-twitter]: https://twitter.com/atomist "Atomist on Twitter"
+[atomist-blog]: https://blog.atomist.com/ "The Atomist Blog"
+
+## Support
+
+General support questions should be discussed in the `#support` channel in the
+[Atomist community Slack workspace][slack].
+
+If you find a problem, please create an [issue](../../issues).
+
+## Development
+
+You will need to install [Node.js][node] to build and test this project.
+
+[node]: https://nodejs.org/ "Node.js"
+
+### Build and test
+
+Install dependencies.
+
+```
+$ npm ci
+```
+
+Use the `build` package script to compile, test, lint, and build the
+documentation.
+
+```
+$ npm run build
+```
+
+### Release
+
+Releases are created by pushing a release [semantic version][semver] tag to the
+repository, Atomist Skills take care of the rest.
+
+To make this skill globally available, set its maturity to "stable" via the set
+maturity drop-down in its Atomist Community Slack channel.
+
+[semver]: https://semver.org/ "Semantic Version"
 
 ---
 
 Created by [Atomist][atomist]. Need Help? [Join our Slack workspace][slack].
 
-[atomist]: https://atomist.com/ "Atomist - How Teams Deliver Software"
+[atomist]: https://atomist.com/ "Atomist - Automate All the Software Things"
 [slack]: https://join.atomist.com/ "Atomist Community Slack"
