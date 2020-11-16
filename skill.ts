@@ -28,6 +28,8 @@ export const Skill = skill<GitHubReleaseConfiguration & { repos: any }>({
 		"Create a GitHub release when semantic version tags are pushed",
 	displayName: "GitHub Release",
 	categories: [Category.DevOps],
+	iconUrl:
+		"https://raw.githubusercontent.com/atomist-skills/github-release-skill/main/docs/images/icon.svg",
 
 	resourceProviders: {
 		github: resourceProvider.gitHub({ minRequired: 1 }),
