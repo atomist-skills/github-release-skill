@@ -21,6 +21,7 @@ import {
 	resourceProvider,
 	skill,
 } from "@atomist/skill";
+
 import { GitHubReleaseConfiguration } from "./lib/configuration";
 
 export const Skill = skill<GitHubReleaseConfiguration & { repos: any }>({

@@ -21,6 +21,7 @@ import {
 	status,
 	subscription,
 } from "@atomist/skill";
+
 import { GitHubReleaseConfiguration } from "../configuration";
 import { isPrereleaseSemVer, isReleaseSemVer } from "../semver";
 
