@@ -15,7 +15,8 @@
  */
 
 import * as assert from "power-assert";
-import { isReleaseSemVer, isPrereleaseSemVer } from "../lib/semver";
+
+import { isPrereleaseSemVer, isReleaseSemVer } from "../lib/semver";
 
 describe("semver", () => {
 	describe("isReleaseSemVer", () => {
