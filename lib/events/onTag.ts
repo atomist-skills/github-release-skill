@@ -17,6 +17,7 @@
 import {
 	EventHandler,
 	github,
+	log,
 	secret,
 	status,
 	subscription,
@@ -47,18 +48,14 @@ export const handler: EventHandler<
 	let prerelease = false;
 	if (createPrerelease && isPrereleaseSemVer(tagName)) {
 		prerelease = true;
-		await ctx.audit.log(
-			`Creating GitHub prerelease ${tagName} for ${repoSlug}`,
-		);
+		log.info(`Creating GitHub prerelease ${tagName} for ${repoSlug}`);
 	} else if (isReleaseSemVer(tagName)) {
-		await ctx.audit.log(
-			`Creating GitHub release ${tagName} for ${repoSlug}`,
-		);
+		log.info(`Creating GitHub release ${tagName} for ${repoSlug}`);
 	} else {
 		return status.success(`Not a semantic version tag: ${tag}`).hidden();
 	}
 
-	await ctx.audit.log(`Starting GitHub Release on ${repoSlug}`);
+	log.info(`Starting GitHub Release on ${repoSlug}`);
 
 	const credential = await ctx.credential.resolve(
 		secret.gitHubAppToken({
@@ -87,11 +84,11 @@ export const handler: EventHandler<
 		});
 	} catch (e) {
 		const reason = `Failed to create release ${tagName} for ${repoSlug}: ${e.message}`;
-		await ctx.audit.log(reason);
+		log.info(reason);
 		return status.failure(reason);
 	}
 
 	const msg = `Created release ${tagName} for ${repoSlug}`;
-	await ctx.audit.log(msg);
+	log.info(msg);
 	return status.success(msg);
 };
