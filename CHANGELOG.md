@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/atomist-skills/github-release-skill/compare/1.0.0...HEAD)
 
+### Changed
+
+-   Update to new logging. [df413d8](https://github.com/atomist-skills/github-release-skill/commit/df413d8d1d97f2ea0ced95bfb29661dac98aeac1)
+
 ## [1.0.0](https://github.com/atomist-skills/github-release-skill/compare/0.2.1...1.0.0) - 2020-11-18
 
 ### Changed
